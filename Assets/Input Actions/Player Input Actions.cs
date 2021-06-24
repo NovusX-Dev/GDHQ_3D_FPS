@@ -33,6 +33,30 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Look X"",
+                    ""type"": ""Value"",
+                    ""id"": ""13b4626c-90c9-403e-a5d9-4acd189cdde2"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Look Y"",
+                    ""type"": ""Value"",
+                    ""id"": ""0e2f004e-8a71-4b19-a877-d998ae704aa5"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""57576d4f-4aa7-484e-b154-06e58bb9977a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -53,7 +77,7 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -64,7 +88,7 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -75,7 +99,7 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -86,7 +110,7 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -97,8 +121,68 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c88b7d7f-e060-417e-b5f7-80a6cab8fdfe"",
+                    ""path"": ""<Mouse>/delta/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Look X"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7545fc36-3aab-4ba7-949e-87e760f58fc3"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Look Y"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a74c85b-4508-4fa6-819f-4f004b8416cb"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Camera Controls"",
+            ""id"": ""2d003ee6-c90a-46cf-b449-b43c18090165"",
+            ""actions"": [
+                {
+                    ""name"": ""Look Y"",
+                    ""type"": ""Value"",
+                    ""id"": ""cf14c798-831d-44f4-b39e-b53afbc2a5e0"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""922c7a5a-9d34-4330-a8ea-dde153f09a09"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Look Y"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -128,6 +212,12 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
         m_PlayerControls = asset.FindActionMap("Player Controls", throwIfNotFound: true);
         m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
         m_PlayerControls_Jump = m_PlayerControls.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerControls_LookX = m_PlayerControls.FindAction("Look X", throwIfNotFound: true);
+        m_PlayerControls_LookY = m_PlayerControls.FindAction("Look Y", throwIfNotFound: true);
+        m_PlayerControls_Escape = m_PlayerControls.FindAction("Escape", throwIfNotFound: true);
+        // Camera Controls
+        m_CameraControls = asset.FindActionMap("Camera Controls", throwIfNotFound: true);
+        m_CameraControls_LookY = m_CameraControls.FindAction("Look Y", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -179,12 +269,18 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
     private IPlayerControlsActions m_PlayerControlsActionsCallbackInterface;
     private readonly InputAction m_PlayerControls_Movement;
     private readonly InputAction m_PlayerControls_Jump;
+    private readonly InputAction m_PlayerControls_LookX;
+    private readonly InputAction m_PlayerControls_LookY;
+    private readonly InputAction m_PlayerControls_Escape;
     public struct PlayerControlsActions
     {
         private @PlayerControllerActions m_Wrapper;
         public PlayerControlsActions(@PlayerControllerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerControls_Movement;
         public InputAction @Jump => m_Wrapper.m_PlayerControls_Jump;
+        public InputAction @LookX => m_Wrapper.m_PlayerControls_LookX;
+        public InputAction @LookY => m_Wrapper.m_PlayerControls_LookY;
+        public InputAction @Escape => m_Wrapper.m_PlayerControls_Escape;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -200,6 +296,15 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
+                @LookX.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLookX;
+                @LookX.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLookX;
+                @LookX.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLookX;
+                @LookY.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLookY;
+                @LookY.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLookY;
+                @LookY.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLookY;
+                @Escape.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnEscape;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -210,10 +315,52 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @LookX.started += instance.OnLookX;
+                @LookX.performed += instance.OnLookX;
+                @LookX.canceled += instance.OnLookX;
+                @LookY.started += instance.OnLookY;
+                @LookY.performed += instance.OnLookY;
+                @LookY.canceled += instance.OnLookY;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
             }
         }
     }
     public PlayerControlsActions @PlayerControls => new PlayerControlsActions(this);
+
+    // Camera Controls
+    private readonly InputActionMap m_CameraControls;
+    private ICameraControlsActions m_CameraControlsActionsCallbackInterface;
+    private readonly InputAction m_CameraControls_LookY;
+    public struct CameraControlsActions
+    {
+        private @PlayerControllerActions m_Wrapper;
+        public CameraControlsActions(@PlayerControllerActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @LookY => m_Wrapper.m_CameraControls_LookY;
+        public InputActionMap Get() { return m_Wrapper.m_CameraControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CameraControlsActions set) { return set.Get(); }
+        public void SetCallbacks(ICameraControlsActions instance)
+        {
+            if (m_Wrapper.m_CameraControlsActionsCallbackInterface != null)
+            {
+                @LookY.started -= m_Wrapper.m_CameraControlsActionsCallbackInterface.OnLookY;
+                @LookY.performed -= m_Wrapper.m_CameraControlsActionsCallbackInterface.OnLookY;
+                @LookY.canceled -= m_Wrapper.m_CameraControlsActionsCallbackInterface.OnLookY;
+            }
+            m_Wrapper.m_CameraControlsActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @LookY.started += instance.OnLookY;
+                @LookY.performed += instance.OnLookY;
+                @LookY.canceled += instance.OnLookY;
+            }
+        }
+    }
+    public CameraControlsActions @CameraControls => new CameraControlsActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -227,5 +374,12 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnLookX(InputAction.CallbackContext context);
+        void OnLookY(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
+    }
+    public interface ICameraControlsActions
+    {
+        void OnLookY(InputAction.CallbackContext context);
     }
 }
