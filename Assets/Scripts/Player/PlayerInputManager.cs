@@ -36,7 +36,6 @@ public class PlayerInputManager : MonoBehaviour, PlayerControllerActions.IPlayer
 
     public void OnLookY(InputAction.CallbackContext context)
     {
-        //_playerCamera.SetYLook(context.ReadValue<float>());
         _playerCamera.YLook = context.ReadValue<float>();
     }
 

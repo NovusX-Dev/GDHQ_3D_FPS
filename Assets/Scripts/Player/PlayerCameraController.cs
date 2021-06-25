@@ -24,9 +24,4 @@ public class PlayerCameraController : MonoBehaviour
         transform.localRotation = Quaternion.AngleAxis(currentRotation.x, Vector3.right);
     }
 
-    public void SetYLook(float position)
-    {
-        YLook = position;
-    }
-
 }

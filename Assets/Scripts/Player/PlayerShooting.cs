@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private float _shootingDistance = 100f;
+    [SerializeField] private int _attackPower = 5;
+
     Ray _ray;
 
     private bool _canShoot;
@@ -17,7 +19,11 @@ public class PlayerShooting : MonoBehaviour
             _ray = Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f,0));
             if (Physics.Raycast(_ray, out var hit, _shootingDistance))
             {
-                Debug.Log("Shoot a " + hit.transform.name);
+                var target = hit.transform.GetComponent<Health>();
+                if (target != null)
+                {
+                    target.Damage(_attackPower);
+                }
             }
             else
             {
