@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, PlayerControllerActions.IPlayerControlsActions
+public class PlayerController : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField] float _gravity = 20f;
     [SerializeField] float _moveSpeed = 10f;
     [SerializeField] float _jumpForce = 5f;
     [SerializeField] float _fallMultiplier = 3f;
+
+    [Header("Mouse Sensitivity")]
     [SerializeField] float _rotationSensitivity = 5f;
 
     private bool _isGrounded;
@@ -93,7 +96,40 @@ public class PlayerController : MonoBehaviour, PlayerControllerActions.IPlayerCo
         }
     }
 
-    #region Player Input Actions
+
+    public void MovePlayer(Vector2 input)
+    {
+        _moveDirection = new Vector3(input.x, 0f, input.y);
+    }
+
+    public void AllowJump(bool jump)
+    {
+        _canJump = jump;
+    }
+
+    public void RotatePlayer(float value)
+    {
+        _xRotation = value;
+    }
+
+    public void MouseConfinement()
+    {
+        switch (Cursor.lockState)
+        {
+            case(CursorLockMode.Locked):
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+                break;
+            case(CursorLockMode.None):
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = false;
+                break;
+        }
+    }
+
+    /*#region Player Input Actions
     public void OnMovement(InputAction.CallbackContext context)
     {
         var input = context.ReadValue<Vector2>();
@@ -112,6 +148,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerActions.IPlayerCo
     {
         _xRotation = context.ReadValue<float>();
     }
+
     public void OnLookY(InputAction.CallbackContext context)
     {
         _yCameraRotate = context.ReadValue<float>();
@@ -125,6 +162,7 @@ public class PlayerController : MonoBehaviour, PlayerControllerActions.IPlayerCo
             {
                 case(CursorLockMode.Locked):
                     Cursor.lockState = CursorLockMode.None;
+                    Cursor.lockState = CursorLockMode.Confined;
                     Cursor.visible = true;
                     break;
                 case(CursorLockMode.None):
@@ -136,5 +174,10 @@ public class PlayerController : MonoBehaviour, PlayerControllerActions.IPlayerCo
         }
     }
 
-    #endregion
+    public void OnShoot(InputAction.CallbackContext context)
+    {
+        //
+    }
+
+    #endregion*/
 }

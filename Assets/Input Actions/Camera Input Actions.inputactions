@@ -1,0 +1,33 @@
+{
+    "name": "Camera Input Actions",
+    "maps": [
+        {
+            "name": "Camera Controls",
+            "id": "738703fb-19dc-4a91-bdca-898545006bf2",
+            "actions": [
+                {
+                    "name": "Look Y",
+                    "type": "Value",
+                    "id": "4754be81-51b7-47f2-b841-b54459f3d0cb",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c9088396-ed2b-419f-8c7f-0e9638d671f2",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Look Y",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

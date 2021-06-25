@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "48c560a6-fdcd-44bf-9265-f35f80cac50a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -145,31 +153,26 @@
                     "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Camera Controls",
-            "id": "2d003ee6-c90a-46cf-b449-b43c18090165",
-            "actions": [
-                {
-                    "name": "Look Y",
-                    "type": "Value",
-                    "id": "cf14c798-831d-44f4-b39e-b53afbc2a5e0",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "922c7a5a-9d34-4330-a8ea-dde153f09a09",
-                    "path": "<Mouse>/delta/y",
+                    "id": "f0a8538d-ff65-4dd2-a591-fb7983515f4d",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "Look Y",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8ef5b72-2dfe-4bcb-ab27-9cf5d55c18de",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

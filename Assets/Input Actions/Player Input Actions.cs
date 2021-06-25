@@ -57,6 +57,14 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""48c560a6-fdcd-44bf-9265-f35f80cac50a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -158,31 +166,26 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                     ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Camera Controls"",
-            ""id"": ""2d003ee6-c90a-46cf-b449-b43c18090165"",
-            ""actions"": [
-                {
-                    ""name"": ""Look Y"",
-                    ""type"": ""Value"",
-                    ""id"": ""cf14c798-831d-44f4-b39e-b53afbc2a5e0"",
-                    ""expectedControlType"": ""Axis"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
+                },
                 {
                     ""name"": """",
-                    ""id"": ""922c7a5a-9d34-4330-a8ea-dde153f09a09"",
-                    ""path"": ""<Mouse>/delta/y"",
+                    ""id"": ""f0a8538d-ff65-4dd2-a591-fb7983515f4d"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Look Y"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8ef5b72-2dfe-4bcb-ab27-9cf5d55c18de"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -215,9 +218,7 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
         m_PlayerControls_LookX = m_PlayerControls.FindAction("Look X", throwIfNotFound: true);
         m_PlayerControls_LookY = m_PlayerControls.FindAction("Look Y", throwIfNotFound: true);
         m_PlayerControls_Escape = m_PlayerControls.FindAction("Escape", throwIfNotFound: true);
-        // Camera Controls
-        m_CameraControls = asset.FindActionMap("Camera Controls", throwIfNotFound: true);
-        m_CameraControls_LookY = m_CameraControls.FindAction("Look Y", throwIfNotFound: true);
+        m_PlayerControls_Shoot = m_PlayerControls.FindAction("Shoot", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -272,6 +273,7 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_LookX;
     private readonly InputAction m_PlayerControls_LookY;
     private readonly InputAction m_PlayerControls_Escape;
+    private readonly InputAction m_PlayerControls_Shoot;
     public struct PlayerControlsActions
     {
         private @PlayerControllerActions m_Wrapper;
@@ -281,6 +283,7 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
         public InputAction @LookX => m_Wrapper.m_PlayerControls_LookX;
         public InputAction @LookY => m_Wrapper.m_PlayerControls_LookY;
         public InputAction @Escape => m_Wrapper.m_PlayerControls_Escape;
+        public InputAction @Shoot => m_Wrapper.m_PlayerControls_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -305,6 +308,9 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                 @Escape.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnEscape;
                 @Escape.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnEscape;
                 @Escape.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnEscape;
+                @Shoot.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnShoot;
+                @Shoot.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnShoot;
+                @Shoot.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnShoot;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -324,43 +330,13 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                 @Escape.started += instance.OnEscape;
                 @Escape.performed += instance.OnEscape;
                 @Escape.canceled += instance.OnEscape;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
             }
         }
     }
     public PlayerControlsActions @PlayerControls => new PlayerControlsActions(this);
-
-    // Camera Controls
-    private readonly InputActionMap m_CameraControls;
-    private ICameraControlsActions m_CameraControlsActionsCallbackInterface;
-    private readonly InputAction m_CameraControls_LookY;
-    public struct CameraControlsActions
-    {
-        private @PlayerControllerActions m_Wrapper;
-        public CameraControlsActions(@PlayerControllerActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @LookY => m_Wrapper.m_CameraControls_LookY;
-        public InputActionMap Get() { return m_Wrapper.m_CameraControls; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(CameraControlsActions set) { return set.Get(); }
-        public void SetCallbacks(ICameraControlsActions instance)
-        {
-            if (m_Wrapper.m_CameraControlsActionsCallbackInterface != null)
-            {
-                @LookY.started -= m_Wrapper.m_CameraControlsActionsCallbackInterface.OnLookY;
-                @LookY.performed -= m_Wrapper.m_CameraControlsActionsCallbackInterface.OnLookY;
-                @LookY.canceled -= m_Wrapper.m_CameraControlsActionsCallbackInterface.OnLookY;
-            }
-            m_Wrapper.m_CameraControlsActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @LookY.started += instance.OnLookY;
-                @LookY.performed += instance.OnLookY;
-                @LookY.canceled += instance.OnLookY;
-            }
-        }
-    }
-    public CameraControlsActions @CameraControls => new CameraControlsActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -377,9 +353,6 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
         void OnLookX(InputAction.CallbackContext context);
         void OnLookY(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
-    }
-    public interface ICameraControlsActions
-    {
-        void OnLookY(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
 }

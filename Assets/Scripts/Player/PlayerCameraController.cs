@@ -10,16 +10,23 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] private float _maxLookX = -20f;
     [SerializeField] PlayerController _player;
 
-    private float _yLook;
+    public float YLook { get; set; }
+
 
     void Update()
     {
-        _yLook = _player.YCameraRotate;
         var currentRotation = transform.localEulerAngles;
-        currentRotation.x -= _yLook * _lookSensitivity * Time.deltaTime;
-       // Mathf.Clamp(currentRotation.x, _minLookX, _maxLookX);
+
+        currentRotation.x = (currentRotation.x > 180f) ? currentRotation.x - 360f : currentRotation.x;
+        currentRotation.x -= YLook * _lookSensitivity * Time.deltaTime;
+
+        currentRotation.x = Mathf.Clamp(currentRotation.x, _minLookX, _maxLookX);
         transform.localRotation = Quaternion.AngleAxis(currentRotation.x, Vector3.right);
-       // Mathf.Clamp(transform.localEulerAngles.x, _minLookX, _maxLookX);
+    }
+
+    public void SetYLook(float position)
+    {
+        YLook = position;
     }
 
 }
