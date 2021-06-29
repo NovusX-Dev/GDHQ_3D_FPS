@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     private bool _isGrounded;
     private bool _canJump;
+    private float _xMove, _zMove;
     private Vector3 _moveDirection;
     private Vector3 _velocity;
     private float _yVelocity;
@@ -48,18 +49,20 @@ public class PlayerController : MonoBehaviour
 
     private void CalculateMovement()
     {
+        
+
         if (_isGrounded)
         {
+            _moveDirection = new Vector3(_xMove, 0f, _zMove);
             _velocity = _moveDirection * _moveSpeed;
+            _velocity = transform.TransformDirection(_velocity);
 
             if (_canJump)
             {
                 _yVelocity = 0;
                 _yVelocity = _jumpForce;
-                _velocity.y = _yVelocity;
             }
         }
-
         else
         {
             _canJump = false;
@@ -68,7 +71,6 @@ public class PlayerController : MonoBehaviour
         GravityCalculations();
 
         _velocity.y = _yVelocity;
-        _velocity = transform.TransformDirection(_velocity);
         _controller.Move(_velocity * Time.deltaTime);
     }
 
@@ -98,7 +100,8 @@ public class PlayerController : MonoBehaviour
 
     public void MovePlayer(Vector2 input)
     {
-        _moveDirection = new Vector3(input.x, 0f, input.y);
+        _xMove = input.x;
+        _zMove = input.y;
     }
 
     public void AllowJump(bool jump)

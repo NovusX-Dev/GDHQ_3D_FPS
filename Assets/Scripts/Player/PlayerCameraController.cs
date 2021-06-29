@@ -21,7 +21,7 @@ public class PlayerCameraController : MonoBehaviour
         currentRotation.x -= YLook * _lookSensitivity * Time.deltaTime;
 
         currentRotation.x = Mathf.Clamp(currentRotation.x, _minLookX, _maxLookX);
-        transform.localRotation = Quaternion.AngleAxis(currentRotation.x, Vector3.right);
+       transform.localRotation = Quaternion.AngleAxis(currentRotation.x, Vector3.right);
     }
 
 }
