@@ -7,14 +7,17 @@ public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private float _shootingDistance = 100f;
     [SerializeField] private int _attackPower = 5;
+    [SerializeField] private float _fireRate = 0.15f;
+
+    private float _nextFire;
+    private bool _canShoot;
 
     Ray _ray;
 
-    private bool _canShoot;
 
     void Update()
     {
-        if (_canShoot)
+        if (_canShoot && Time.time > _nextFire)
         {
             _ray = Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f,0));
             if (Physics.Raycast(_ray, out var hit, _shootingDistance))
@@ -27,8 +30,10 @@ public class PlayerShooting : MonoBehaviour
             }
             else
             {
-                Debug.Log("Shooting thin air");
+                Debug.Log("Shooting blanks");
             }
+
+            _nextFire = Time.time + _fireRate;
         }
         
     }

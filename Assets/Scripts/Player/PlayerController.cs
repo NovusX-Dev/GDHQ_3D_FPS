@@ -68,7 +68,6 @@ public class PlayerController : MonoBehaviour
         GravityCalculations();
 
         _velocity.y = _yVelocity;
-
         _velocity = transform.TransformDirection(_velocity);
         _controller.Move(_velocity * Time.deltaTime);
     }

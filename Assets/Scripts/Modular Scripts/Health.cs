@@ -16,7 +16,7 @@ public class Health : MonoBehaviour
 
     void Update()
     {
-        
+        Debug.Log(transform.name + " current health is " + _currentHealth);
     }
 
     public void Damage(int damageAmount)
@@ -27,5 +27,10 @@ public class Health : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public int GetCurrentHealth()
+    {
+        return _currentHealth;
     }
 }
