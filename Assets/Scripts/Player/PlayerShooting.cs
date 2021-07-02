@@ -16,6 +16,8 @@ public class PlayerShooting : MonoBehaviour
     private float _nextFire;
     private bool _canShoot;
 
+    public bool CanShootGun => _canShoot;
+
     Ray _ray;
 
 
@@ -37,7 +39,7 @@ public class PlayerShooting : MonoBehaviour
             {
                 Debug.Log("Shooting blanks");
             }
-
+            _canShoot = false;
             _nextFire = Time.time + _fireRate;
         }
         
@@ -48,4 +50,8 @@ public class PlayerShooting : MonoBehaviour
         _canShoot = shoot;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(_ray);
+    }
 }

@@ -9,14 +9,12 @@ public class Health : MonoBehaviour
     private int _minHealth;
     private int _currentHealth;
 
+    public int MaxHealth => _maxHealth;
+    public int CurrentHealth => _currentHealth;
+
     void Start()
     {
         _currentHealth = _maxHealth;
-    }
-
-    void Update()
-    {
-        Debug.Log(transform.name + " current health is " + _currentHealth);
     }
 
     public void Damage(int damageAmount)
@@ -29,8 +27,4 @@ public class Health : MonoBehaviour
         }
     }
 
-    public int GetCurrentHealth()
-    {
-        return _currentHealth;
-    }
 }

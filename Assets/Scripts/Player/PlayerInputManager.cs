@@ -50,6 +50,5 @@ public class PlayerInputManager : MonoBehaviour, PlayerControllerActions.IPlayer
     public void OnShoot(InputAction.CallbackContext context)
     {
         _playerShooting.CanShoot(context.ReadValueAsButton());
-        //_playerShooting.CanShoot(context.started);
     }
 }
