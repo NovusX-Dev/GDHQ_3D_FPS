@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputManager : MonoBehaviour, PlayerControllerActions.IPlayerControlsActions
 {
+    public delegate void ReloadWeapon();
+    public static event ReloadWeapon OnReloadWeapon;
+    
     PlayerController _playerController;
     PlayerCameraController _playerCamera;
     PlayerShooting _playerShooting;
@@ -50,5 +53,10 @@ public class PlayerInputManager : MonoBehaviour, PlayerControllerActions.IPlayer
     public void OnShoot(InputAction.CallbackContext context)
     {
         _playerShooting.CanShoot(context.ReadValueAsButton());
+    }
+
+    public void OnReload(InputAction.CallbackContext context)
+    {
+        OnReloadWeapon?.Invoke();
     }
 }

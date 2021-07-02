@@ -65,6 +65,14 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""b01cdd6d-9920-4846-8d6e-0f0d6e3ad475"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -180,12 +188,12 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a8ef5b72-2dfe-4bcb-ab27-9cf5d55c18de"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""1854bc78-dcbb-44bf-887e-9cdc9be8d43c"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Shoot"",
+                    ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -219,6 +227,7 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
         m_PlayerControls_LookY = m_PlayerControls.FindAction("Look Y", throwIfNotFound: true);
         m_PlayerControls_Escape = m_PlayerControls.FindAction("Escape", throwIfNotFound: true);
         m_PlayerControls_Shoot = m_PlayerControls.FindAction("Shoot", throwIfNotFound: true);
+        m_PlayerControls_Reload = m_PlayerControls.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -274,6 +283,7 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_LookY;
     private readonly InputAction m_PlayerControls_Escape;
     private readonly InputAction m_PlayerControls_Shoot;
+    private readonly InputAction m_PlayerControls_Reload;
     public struct PlayerControlsActions
     {
         private @PlayerControllerActions m_Wrapper;
@@ -284,6 +294,7 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
         public InputAction @LookY => m_Wrapper.m_PlayerControls_LookY;
         public InputAction @Escape => m_Wrapper.m_PlayerControls_Escape;
         public InputAction @Shoot => m_Wrapper.m_PlayerControls_Shoot;
+        public InputAction @Reload => m_Wrapper.m_PlayerControls_Reload;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -311,6 +322,9 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                 @Shoot.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnShoot;
+                @Reload.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -333,6 +347,9 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -354,5 +371,6 @@ public class @PlayerControllerActions : IInputActionCollection, IDisposable
         void OnLookY(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }
