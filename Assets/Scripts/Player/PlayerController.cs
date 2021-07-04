@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private int _id;
     [Header("Movement")]
     [SerializeField] float _gravity = 20f;
     [SerializeField] float _moveSpeed = 10f;
@@ -26,10 +27,14 @@ public class PlayerController : MonoBehaviour
     public float YCameraRotate => _yCameraRotate;
 
     CharacterController _controller;
-    
+    Health _health;
+    Animator _anim;
+
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
+        _health = GetComponent<Health>();
+        _anim = GetComponent<Animator>();
     }
 
     void Start()
@@ -45,12 +50,11 @@ public class PlayerController : MonoBehaviour
 
         CalculateMovement();
         PlayerRotationY();
+
     }
 
     private void CalculateMovement()
     {
-        
-
         if (_isGrounded)
         {
             _moveDirection = new Vector3(_xMove, 0f, _zMove);
@@ -97,7 +101,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    #region Input
     public void MovePlayer(Vector2 input)
     {
         _xMove = input.x;
@@ -131,55 +135,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*#region Player Input Actions
-    public void OnMovement(InputAction.CallbackContext context)
-    {
-        var input = context.ReadValue<Vector2>();
-        _moveDirection = new Vector3(input.x, 0f, input.y);
-    }
-
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            _canJump = true;
-        }
-    }
-
-    public void OnLookX(InputAction.CallbackContext context)
-    {
-        _xRotation = context.ReadValue<float>();
-    }
-
-    public void OnLookY(InputAction.CallbackContext context)
-    {
-        _yCameraRotate = context.ReadValue<float>();
-    }
-
-    public void OnEscape(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            switch (Cursor.lockState)
-            {
-                case(CursorLockMode.Locked):
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.lockState = CursorLockMode.Confined;
-                    Cursor.visible = true;
-                    break;
-                case(CursorLockMode.None):
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.lockState = CursorLockMode.Confined;
-                    Cursor.visible = false;
-                    break;
-            }
-        }
-    }
-
-    public void OnShoot(InputAction.CallbackContext context)
-    {
-        //
-    }
-
-    #endregion*/
+    #endregion
 }

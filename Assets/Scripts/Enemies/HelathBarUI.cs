@@ -7,7 +7,7 @@ public class HelathBarUI : MonoBehaviour
 {
     [SerializeField] Image _healthBar;
 
-    private Health _enemyHealth;
+    EnemyHealth _enemyHealth;
 
     void Start()
     {
@@ -16,7 +16,7 @@ public class HelathBarUI : MonoBehaviour
             Debug.LogError("Enemy " + transform.parent.name + " health bar is not set in the inspector!");
         }
 
-        _enemyHealth = GetComponentInParent<Health>();
+        _enemyHealth = GetComponentInParent<EnemyHealth>();
     }
 
     void Update()

@@ -6,6 +6,8 @@ public class EnemyAnimations : MonoBehaviour
 {
     [SerializeField] GameObject[] _bloodSplatter;
 
+    private bool _isDead = false;
+
     private void OnEnable()
     {
         PlayerShooting.onEnemyHit += DamageEffects;
@@ -16,6 +18,13 @@ public class EnemyAnimations : MonoBehaviour
         PlayerShooting.onEnemyHit -= DamageEffects;
     }
 
+    private void Update()
+    {
+        if (_isDead)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void DamageEffects(Vector3 origin, Quaternion rotation)
     {
@@ -23,4 +32,10 @@ public class EnemyAnimations : MonoBehaviour
         blood.transform.position = origin;
         Destroy(blood.gameObject, 1f);
     }
+
+    public bool IsDead(bool dead)
+    {
+        return _isDead = dead;
+    }
+
 }

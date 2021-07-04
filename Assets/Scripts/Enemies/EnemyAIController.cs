@@ -24,7 +24,7 @@ public class EnemyAIController : MonoBehaviour
     private Transform _currentTarget;
     private Vector3 _velocity;
     private float _yVelocity;
-    private Health _currentAttackTarget;
+    private PlayerHealth _currentAttackTarget;
     private float _nextAttack = -1f;
 
     CharacterController _controller;
@@ -72,7 +72,6 @@ public class EnemyAIController : MonoBehaviour
                 Attack();
                 break;
         }
-
     }
 
     private void CalculateMovement()
@@ -100,8 +99,12 @@ public class EnemyAIController : MonoBehaviour
     {
         if (Time.time > _nextAttack)
         {
-            _currentAttackTarget.Damage(_attackPower);
-            _nextAttack = Time.time + _attackRate;
+            if (_currentAttackTarget != null)
+            {
+                _currentAttackTarget.Damage(_attackPower);
+                UIManager.Instance.ActivateSplatter();
+                _nextAttack = Time.time + _attackRate;
+            }
         }
     }
 
@@ -109,7 +112,7 @@ public class EnemyAIController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            _currentAttackTarget = _player.GetComponent<Health>();
+            _currentAttackTarget = _player.GetComponent<PlayerHealth>();
 
             if (_currentAttackTarget != null)
             {
@@ -117,7 +120,6 @@ public class EnemyAIController : MonoBehaviour
             }
         }
     }
-
 
     private void OnTriggerExit(Collider other)
     {

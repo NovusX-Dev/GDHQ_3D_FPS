@@ -40,10 +40,12 @@ public class PlayerShooting : MonoBehaviour
         _ray = Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f,0));
         if (Physics.Raycast(_ray, out var hit, _shootingDistance, _shootingMask))
         {
-            var target = hit.transform.GetComponent<Health>();
+            var target = hit.transform.GetComponent<EnemyPartsHealth>();
+            Debug.Log(hit.transform.name);
             if (target != null)
             {
                 target.Damage(_attackPower);
+                
                 onEnemyHit?.Invoke(hit.point, Quaternion.LookRotation(hit.normal));
             }
         }

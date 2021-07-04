@@ -2,16 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
-    public delegate void CharacterDeath(int healthID);
-
-    public static event CharacterDeath OnDeath;
-
-    [SerializeField] private int healthID;
     [SerializeField] private int _maxHealth = 100;
 
-    private int _minHealth;
     private int _currentHealth;
 
     public int MaxHealth => _maxHealth;
@@ -20,6 +14,7 @@ public class Health : MonoBehaviour
     void Start()
     {
         _currentHealth = _maxHealth;
+        UIManager.Instance.UpdateHealth(_currentHealth, _maxHealth);
     }
 
     public void Damage(int damageAmount)
@@ -28,9 +23,14 @@ public class Health : MonoBehaviour
 
         if (_currentHealth < 1)
         {
-            OnDeath?.Invoke(healthID);
+            Die();
         }
+
+        UIManager.Instance.UpdateHealth(_currentHealth, _maxHealth);
     }
 
+    private void Die()
+    {
 
+    }
 }

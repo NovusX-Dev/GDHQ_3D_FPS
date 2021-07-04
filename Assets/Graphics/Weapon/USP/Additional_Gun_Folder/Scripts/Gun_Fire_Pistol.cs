@@ -19,7 +19,6 @@ public class Gun_Fire_Pistol : MonoBehaviour
 
     private bool _canAutoFire;
     private bool _isReloading;
-    private bool _hasAmmo;
     private bool _outOfAmmo;
     private int _currentAmmo;
 
@@ -43,8 +42,6 @@ public class Gun_Fire_Pistol : MonoBehaviour
     {
         _anim = GetComponent<Animator>();
         _playerShooting = GetComponentInParent<PlayerShooting>();
-
-        _hasAmmo = true;
         _currentAmmo = _maxAmmo;
         UIManager.Instance.UpdateAmmo(_currentAmmo, _maxAmmo);
     }
