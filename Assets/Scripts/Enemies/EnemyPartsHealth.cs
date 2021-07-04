@@ -19,12 +19,10 @@ public class EnemyPartsHealth : MonoBehaviour
         if (_head)
         {
             _health.DamageEnemy((int) (damageAmount * Random.Range(1.25f, 1.75f)));
-            Debug.Log("Damage done: " + (int) (damageAmount * Random.Range(1.25f, 1.75f)));
         }
         else if (_body)
         {
             _health.DamageEnemy(damageAmount);
-            Debug.Log("Damage done: " + damageAmount);
         }
     }
 

@@ -41,7 +41,6 @@ public class PlayerShooting : MonoBehaviour
         if (Physics.Raycast(_ray, out var hit, _shootingDistance, _shootingMask))
         {
             var target = hit.transform.GetComponent<EnemyPartsHealth>();
-            Debug.Log(hit.transform.name);
             if (target != null)
             {
                 target.Damage(_attackPower);

@@ -8,6 +8,8 @@ public class EnemyAnimations : MonoBehaviour
 
     private bool _isDead = false;
 
+    Animator _anim;
+
     private void OnEnable()
     {
         PlayerShooting.onEnemyHit += DamageEffects;
@@ -16,6 +18,11 @@ public class EnemyAnimations : MonoBehaviour
     private void OnDisable()
     {
         PlayerShooting.onEnemyHit -= DamageEffects;
+    }
+
+    private void Awake()
+    {
+        _anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -38,4 +45,13 @@ public class EnemyAnimations : MonoBehaviour
         return _isDead = dead;
     }
 
+    public void WalkingAnim(bool walk)
+    {
+        _anim.SetBool("walk", walk);
+    }
+
+    public void AttackAnim()
+    {
+        _anim.SetTrigger("attack");
+    }
 }

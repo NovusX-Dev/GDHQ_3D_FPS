@@ -11,6 +11,7 @@ public class EnemyAIController : MonoBehaviour
     [Header ("Movement")]
     [SerializeField] private float _gravity = 20f;
     [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private float _chaseDistance = 50f;
 
     [Header("Attack")] 
     [SerializeField] private int _attackPower = 15;
@@ -27,16 +28,21 @@ public class EnemyAIController : MonoBehaviour
     private PlayerHealth _currentAttackTarget;
     private float _nextAttack = -1f;
 
+    public float ChaseDistance => _chaseDistance;
+
     CharacterController _controller;
+    EnemyAnimations _animations;
 
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
+        _animations = GetComponent<EnemyAnimations>();
     }
 
     void Start()
     {
-        _enemyState = EnemyState.Chase;
+        _enemyState = EnemyState.Idle;
+
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         if (_player == null)
         {
@@ -62,10 +68,12 @@ public class EnemyAIController : MonoBehaviour
         switch (_enemyState)
         {
             case EnemyState.Idle:
+                _animations.WalkingAnim(false);
                 break;
 
             case EnemyState.Chase:
                 CalculateMovement();
+                _animations.WalkingAnim(true);
                 break;
 
             case EnemyState.Attack:
@@ -97,6 +105,8 @@ public class EnemyAIController : MonoBehaviour
 
     private void Attack()
     {
+        _animations.WalkingAnim(false);
+        _animations.AttackAnim();
         if (Time.time > _nextAttack)
         {
             if (_currentAttackTarget != null)
@@ -106,6 +116,11 @@ public class EnemyAIController : MonoBehaviour
                 _nextAttack = Time.time + _attackRate;
             }
         }
+    }
+
+    public void StateChanger(EnemyState state)
+    {
+        _enemyState = state;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -129,4 +144,6 @@ public class EnemyAIController : MonoBehaviour
             _enemyState = EnemyState.Chase;
         }
     }
+
+    
 }
