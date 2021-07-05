@@ -54,4 +54,15 @@ public class EnemyAnimations : MonoBehaviour
     {
         _anim.SetTrigger("attack");
     }
+
+    public void ResetAttackAnim()
+    {
+        _anim.ResetTrigger("attack");
+    }
+
+    public void IsAttackingAnim(bool attack)
+    {
+        _anim.SetBool("isAttacking", attack);
+    }
+
 }

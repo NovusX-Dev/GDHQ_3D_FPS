@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class EnemyChaseRadius : MonoBehaviour
 {
-    EnemyAIController _enemy;
+    EnemyAIMeshController _enemyMesh;
     SphereCollider _collider;
 
     private void Awake()
     {
-        _enemy = GetComponentInParent<EnemyAIController>();
+        _enemyMesh = GetComponentInParent<EnemyAIMeshController>();
         _collider = GetComponent<SphereCollider>();
     }
 
     void Start()
     {
-        _collider.radius = _enemy.ChaseDistance;
+        _collider.radius = _enemyMesh.ChaseDistance;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            _enemy.StateChanger(EnemyAIController.EnemyState.Chase);
+            _enemyMesh.StateChanger(EnemyAIMeshController.EnemyState.Chase);
         }
     }
 
@@ -30,7 +30,7 @@ public class EnemyChaseRadius : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            _enemy.StateChanger(EnemyAIController.EnemyState.Idle);
+            _enemyMesh.StateChanger(EnemyAIMeshController.EnemyState.Idle);
         }
     }
 
