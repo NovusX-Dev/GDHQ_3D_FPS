@@ -6,7 +6,6 @@ public class EnemyAnimations : MonoBehaviour
 {
     [SerializeField] GameObject[] _bloodSplatter;
 
-    private bool _isDead = false;
 
     Animator _anim;
 
@@ -25,24 +24,12 @@ public class EnemyAnimations : MonoBehaviour
         _anim = GetComponent<Animator>();
     }
 
-    private void Update()
-    {
-        if (_isDead)
-        {
-            Destroy(gameObject);
-        }
-    }
 
     public void DamageEffects(Vector3 origin, Quaternion rotation)
     {
         var blood = Instantiate(_bloodSplatter[Random.Range(0, _bloodSplatter.Length)], origin, rotation);
         blood.transform.position = origin;
         Destroy(blood.gameObject, 1f);
-    }
-
-    public bool IsDead(bool dead)
-    {
-        return _isDead = dead;
     }
 
     public void WalkingAnim(bool walk)
@@ -65,4 +52,8 @@ public class EnemyAnimations : MonoBehaviour
         _anim.SetBool("isAttacking", attack);
     }
 
+    public void DeathTriggerAnim()
+    {
+        _anim.SetTrigger("die");
+    }
 }

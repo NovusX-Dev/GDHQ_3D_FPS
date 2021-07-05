@@ -7,7 +7,7 @@ public class EnemyPartsHealth : MonoBehaviour
     [SerializeField] private bool _head, _body;
 
     private int _minHealth;
-    public EnemyHealth _health;
+    private EnemyHealth _health;
 
     private void Start()
     {
@@ -26,5 +26,4 @@ public class EnemyPartsHealth : MonoBehaviour
         }
     }
 
-    
 }

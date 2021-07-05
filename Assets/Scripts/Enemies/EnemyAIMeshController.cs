@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyAIMeshController : MonoBehaviour
 {
-     public enum EnemyState { Idle, Chase, Attack };
+     public enum EnemyState { Idle, Chase, Attack, Dead };
     [SerializeField] private EnemyState _enemyState;
 
     [Header ("Movement")]
@@ -29,11 +29,13 @@ public class EnemyAIMeshController : MonoBehaviour
 
     NavMeshAgent _navMesh;
     EnemyAnimations _animations;
+    EnemyHealth _enemyHealth;
 
     private void Awake()
     {
         _navMesh = GetComponent<NavMeshAgent>();
         _animations = GetComponent<EnemyAnimations>();
+        _enemyHealth = GetComponent<EnemyHealth>();
     }
 
     void Start()
@@ -64,6 +66,7 @@ public class EnemyAIMeshController : MonoBehaviour
 
     void Update()
     {
+        if (_enemyHealth.IsDead) _enemyState = EnemyState.Dead;
 
         switch (_enemyState)
         {
@@ -81,19 +84,28 @@ public class EnemyAIMeshController : MonoBehaviour
                 break;
 
             case EnemyState.Attack:
+                _navMesh.isStopped = true;
                 _animations.IsAttackingAnim(true);
                 AttackAnimation();
+                break;
+            case EnemyState.Dead:
+                _animations.ResetAttackAnim ();
+                _animations.IsAttackingAnim(false);
+                _animations.WalkingAnim(false);
+                _navMesh.isStopped = true;
+                Destroy(gameObject, 30f);
                 break;
         }
     }
 
     private void CalculateMovement()
     {
+        _navMesh.isStopped = false;
         _navMesh.SetDestination(_currentTarget.position);
     }
 
     private void AttackAnimation()
-    {
+    {  
         _animations.WalkingAnim(false);
         _animations.AttackAnim();
     }
@@ -104,7 +116,6 @@ public class EnemyAIMeshController : MonoBehaviour
         {
             _currentAttackTarget.Damage(_attackPower);
             UIManager.Instance.ActivateSplatter();
-            //_nextAttack = Time.time + _attackRate;
         }
     }
 
@@ -116,6 +127,7 @@ public class EnemyAIMeshController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_enemyHealth.IsDead) return;
         if (other.CompareTag("Player"))
         {
             _currentAttackTarget = _player.GetComponent<PlayerHealth>();
@@ -129,6 +141,7 @@ public class EnemyAIMeshController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (_enemyHealth.IsDead) return;
         if (other.CompareTag("Player"))
         {
             _currentAttackTarget = null;
